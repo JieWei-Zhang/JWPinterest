@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A19FA601CCF306300FDBE34 /* JWCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A19FA5F1CCF306300FDBE34 /* JWCollectionCell.m */; };
+		5A23DCD21CD05FC30094172E /* DropDownTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A23DCD11CD05FC30094172E /* DropDownTransition.m */; };
+		5A52A23D1CCDFDB5003EC295 /* MoveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52A23C1CCDFDB5003EC295 /* MoveTransition.m */; };
 		5AAC7CE11CCA18B500F2A27A /* JDFPeekabooCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAC7CE01CCA18B500F2A27A /* JDFPeekabooCoordinator.m */; };
 		5AB27C1D1CC9FBB600C4B87E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB27C1C1CC9FBB600C4B87E /* main.m */; };
 		5AB27C201CC9FBB600C4B87E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB27C1F1CC9FBB600C4B87E /* AppDelegate.m */; };
@@ -50,6 +53,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A19FA5E1CCF306300FDBE34 /* JWCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWCollectionCell.h; sourceTree = "<group>"; };
+		5A19FA5F1CCF306300FDBE34 /* JWCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWCollectionCell.m; sourceTree = "<group>"; };
+		5A23DCD01CD05FC30094172E /* DropDownTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownTransition.h; sourceTree = "<group>"; };
+		5A23DCD11CD05FC30094172E /* DropDownTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownTransition.m; sourceTree = "<group>"; };
+		5A52A23B1CCDFDB5003EC295 /* MoveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveTransition.h; sourceTree = "<group>"; };
+		5A52A23C1CCDFDB5003EC295 /* MoveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveTransition.m; sourceTree = "<group>"; };
 		5AAC7CDF1CCA18B500F2A27A /* JDFPeekabooCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDFPeekabooCoordinator.h; sourceTree = "<group>"; };
 		5AAC7CE01CCA18B500F2A27A /* JDFPeekabooCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDFPeekabooCoordinator.m; sourceTree = "<group>"; };
 		5AB27C181CC9FBB600C4B87E /* JWPinterestDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWPinterestDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +168,12 @@
 				5AB27C221CC9FBB600C4B87E /* ViewController.m */,
 				5AB27C7F1CCA04F900C4B87E /* SecondViewController.h */,
 				5AB27C801CCA04F900C4B87E /* SecondViewController.m */,
+				5A19FA5E1CCF306300FDBE34 /* JWCollectionCell.h */,
+				5A19FA5F1CCF306300FDBE34 /* JWCollectionCell.m */,
+				5A52A23B1CCDFDB5003EC295 /* MoveTransition.h */,
+				5A52A23C1CCDFDB5003EC295 /* MoveTransition.m */,
+				5A23DCD01CD05FC30094172E /* DropDownTransition.h */,
+				5A23DCD11CD05FC30094172E /* DropDownTransition.m */,
 				5AB27C241CC9FBB600C4B87E /* Main.storyboard */,
 				5AB27C271CC9FBB600C4B87E /* Assets.xcassets */,
 				5AB27C291CC9FBB600C4B87E /* LaunchScreen.storyboard */,
@@ -387,8 +402,11 @@
 				5AB27C741CC9FDDB00C4B87E /* MASCompositeConstraint.m in Sources */,
 				5AB27C781CC9FDDB00C4B87E /* MASViewAttribute.m in Sources */,
 				5AB27C761CC9FDDB00C4B87E /* MASConstraintMaker.m in Sources */,
+				5A23DCD21CD05FC30094172E /* DropDownTransition.m in Sources */,
+				5A52A23D1CCDFDB5003EC295 /* MoveTransition.m in Sources */,
 				5AB27C811CCA04F900C4B87E /* SecondViewController.m in Sources */,
 				5AB27C7A1CC9FDDB00C4B87E /* NSArray+MASAdditions.m in Sources */,
+				5A19FA601CCF306300FDBE34 /* JWCollectionCell.m in Sources */,
 				5AB27C7D1CC9FDDB00C4B87E /* ViewController+MASAdditions.m in Sources */,
 				5AB27C751CC9FDDB00C4B87E /* MASConstraint.m in Sources */,
 				5AB27C771CC9FDDB00C4B87E /* MASLayoutConstraint.m in Sources */,

@@ -127,7 +127,23 @@ static CGFloat CHTFloorCGFloat(CGFloat value) {
 
   return CHTFloorCGFloat((width - (columnCount - 1) * columnSpacing) / columnCount);
 }
-
+- (CGFloat)itemheightAtIndex:(NSIndexPath *)indexPath
+{
+    
+    CGFloat width = self.collectionView.bounds.size.width - self.sectionInset.left - self.sectionInset.right;
+    
+    CGFloat itemWidth = CHTFloorCGFloat((width - (self.columnCount - 1) * self.minimumColumnSpacing) / self.columnCount);
+    
+    
+    CGSize itemSize = [self.delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
+    
+    CGFloat itemHeight = 0;
+    if (itemSize.height > 0 && itemSize.width > 0) {
+        itemHeight = CHTFloorCGFloat(itemSize.height * itemWidth / itemSize.width);
+    }
+    
+    return itemHeight;
+}
 #pragma mark - Private Accessors
 - (NSMutableDictionary *)headersAttribute {
   if (!_headersAttribute) {

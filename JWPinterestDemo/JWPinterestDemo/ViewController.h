@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "CHTCollectionViewWaterfallLayout.h"
-@interface ViewController : UIViewController<UICollectionViewDelegate,UICollectionViewDataSource,CHTCollectionViewDelegateWaterfallLayout>
+#import "MoveTransition.h"
+@interface ViewController : UIViewController<UICollectionViewDelegate,UICollectionViewDataSource,CHTCollectionViewDelegateWaterfallLayout,UIViewControllerTransitioningDelegate>
 @property (strong, nonatomic) UICollectionView *collectionView;
 
-@property (strong, nonatomic) NSMutableDictionary *dataArr;
+@property (strong, nonatomic) NSMutableArray *dataArr;
 
+
+@property(nonatomic,strong)NSIndexPath *indexPath;
+@property(nonatomic,assign)CGRect finalCellRect;
 @end
 

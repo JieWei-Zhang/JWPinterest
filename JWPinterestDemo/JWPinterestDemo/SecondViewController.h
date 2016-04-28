@@ -9,9 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "CHTCollectionViewWaterfallLayout.h"
 #import "Masonry.h"
+#import "JWCollectionCell.h"
+#import "DropDownTransition.h"
+#import "ViewController.h"
 @interface SecondViewController : UIViewController<UICollectionViewDelegate,UICollectionViewDataSource,CHTCollectionViewDelegateWaterfallLayout>
 @property (strong, nonatomic) UICollectionView *collectionView;
 
-@property (strong, nonatomic) NSMutableDictionary *dataArr;
+@property (strong, nonatomic) NSMutableArray *dataArr;
+@property (assign, nonatomic) CGRect itemStartFrame;
+
+@property (strong, nonatomic) UICollectionView *sourceCollectionView;
+
+@property(nonatomic,strong)UICollectionViewCell *selectedCell;
+@property(nonatomic,strong)NSIndexPath *pageindex;
 
 @end

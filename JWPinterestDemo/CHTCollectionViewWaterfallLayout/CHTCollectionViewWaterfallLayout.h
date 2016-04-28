@@ -322,4 +322,6 @@ extern NSString *const CHTCollectionElementKindSectionFooter;
  */
 - (CGFloat)itemWidthInSectionAtIndex:(NSInteger)section;
 
+- (CGFloat)itemheightAtIndex:(NSIndexPath *)indexPath;
+
 @end

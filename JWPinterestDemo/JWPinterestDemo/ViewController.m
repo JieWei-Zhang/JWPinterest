@@ -10,8 +10,10 @@
 #import "Masonry.h"
 #import "SecondViewController.h"
 #import "JDFPeekabooCoordinator.h"
-@interface ViewController ()
+@interface ViewController ()<UINavigationControllerDelegate>
 @property (nonatomic, strong) JDFPeekabooCoordinator *scrollCoordinator;
+@property (nonatomic, strong) SecondViewController *secondVC;
+
 @end
 
 @implementation ViewController
@@ -34,6 +36,8 @@
     [super viewDidAppear:animated];
     
     [self.scrollCoordinator enable];
+    
+     self.navigationController.delegate = self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -83,9 +87,7 @@
     UICollectionViewCell *cell =
     (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
                                                                          forIndexPath:indexPath];
-    
-   // cell.cellData=self.stylearr[indexPath.row];
-    cell.backgroundColor = [UIColor colorWithHue:( arc4random() % 256 / 256.0 )
+        cell.backgroundColor = [UIColor colorWithHue:( arc4random() % 256 / 256.0 )
                                                                     saturation:( arc4random() % 128 / 256.0 ) + 0.5
                                                                      brightness:( arc4random() % 128 / 256.0 ) + 0.5
                                                                        alpha:1];
@@ -93,47 +95,85 @@
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(100, arc4random()%100+50);
+    return [self.dataArr[indexPath.item % 4] CGSizeValue];
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SecondViewController*vc =[[SecondViewController  alloc]init];
     
-    [self.navigationController pushViewController:vc animated:YES];
+    if (!_secondVC) {
+        _secondVC =[[SecondViewController  alloc]init];
+    }
+    
+   
+    _secondVC.itemStartFrame=[self.view  convertRect:[collectionView  cellForItemAtIndexPath:indexPath].frame fromView:collectionView];//[self.dataArr[indexPath.row]CGSizeValue];
+//
+    
+    [_secondVC addObserver:self forKeyPath:NSStringFromSelector(@selector(pageindex)) options:NSKeyValueObservingOptionNew context:NULL];
+    NSLog(@"________%F",[self.dataArr[indexPath.row]CGSizeValue].height);
+
+    _secondVC.sourceCollectionView=collectionView;
+    _secondVC.dataArr=self.dataArr;
+    
+   // NSLog(@"_______%f",vc.itemStartFrame.size.height);
+    [self.navigationController pushViewController:_secondVC animated:YES];
     //[self  presentViewController:vc animated:YES completion:nil];
 
     
 }
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    NSIndexPath *pageindex = change[NSKeyValueChangeNewKey];
+    
+    [self.collectionView scrollToItemAtIndexPath:pageindex atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    
+    [self.collectionView reloadData];
+    NSMutableArray * arr =[[NSMutableArray  alloc]init];
+    for (int i = 0 ; i<self.dataArr.count; i++) {
+        
+        CGRect frame =[self.view  convertRect:[self.collectionView  cellForItemAtIndexPath:[NSIndexPath  indexPathForItem:i inSection:0]].frame fromView:self.collectionView];
+        //NSStringFromCGRect(frame);
+        [arr addObject:NSStringFromCGRect(frame)];
+    }
+    _secondVC.dataArr=self.dataArr;
+   _secondVC.sourceCollectionView=self.collectionView;
+    
+    
+}
 
-
--(NSMutableDictionary *)dataArr
+-(NSMutableArray *)dataArr
 {
     if (!_dataArr) {
-        _dataArr =[[NSMutableDictionary  alloc]init];
+        _dataArr=[[NSMutableArray  alloc]init];
+        for (int i =0; i<20; i++) {
+            [_dataArr addObject:[NSValue valueWithCGSize:CGSizeMake(100, arc4random()%150+50)]];
+        }
+        
     }
     return _dataArr;
 }
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
-        
-        layout.sectionInset = UIEdgeInsetsMake(1, 10, 1, 10);
-        layout.headerHeight = 0;
-                layout.minimumColumnSpacing = 10;
-                layout.minimumInteritemSpacing = 10;
-        
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _collectionView.showsHorizontalScrollIndicator=NO;
-        _collectionView.showsVerticalScrollIndicator=NO;
-        _collectionView.alwaysBounceVertical=YES;
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
+        CHTCollectionViewWaterfallLayout *layout       = [[CHTCollectionViewWaterfallLayout alloc] init];
+
+        layout.sectionInset                            = UIEdgeInsetsMake(1, 10, 1, 10);
+        layout.headerHeight                            = 0;
+
+        layout.minimumColumnSpacing                    = 10;
+
+        layout.minimumInteritemSpacing                 = 10;
+
+        _collectionView                                = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+        _collectionView.autoresizingMask               = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.showsVerticalScrollIndicator   = NO;
+        _collectionView.alwaysBounceVertical           = YES;
+        _collectionView.dataSource                     = self;
+        _collectionView.delegate                       = self;
         _collectionView.backgroundColor =[UIColor whiteColor];
         //_collectionView.contentInset=UIEdgeInsetsMake(64, 0, 49, 0);
-        
+
         //[_collectionView registerNib:[UINib nibWithNibName:@"StyleCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"StyleCollectionViewCell"];
-        
+
         [_collectionView  registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     }
     
@@ -141,11 +181,19 @@
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-   
+}
+#pragma mark <UINavigationControllerDelegate>
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC{
     
-     CGRect topBarFrame =  self.navigationController.navigationBar.frame;
-    
-    CGFloat topBarHeight = topBarFrame.size.height;
+    if ([toVC isKindOfClass:[SecondViewController class]]) {
+        MoveTransition *transition = [[MoveTransition alloc]init];
+        return transition;
+    }else{
+        return nil;
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
